@@ -215,7 +215,6 @@ def fresnel_propagator(field, z, dx, labda=1550e-9):
     field_ft = np.fft.fft2(field)
     return np.fft.ifft2(field_ft * H)
 
-
 if __name__ == "__main__":
 
     # 1D Gaussian beam profile example

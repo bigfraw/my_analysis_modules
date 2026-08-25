@@ -20,7 +20,14 @@ NO LIGHTPIPES DEPENDENCY
 '''
 
 rytov = lambda cn2,k,l: (1.23*cn2*k**(7/6)*l**(11/6))**0.5
-scint_pl = lambda cn2,k,l: np.exp(0.54*rytov(cn2,k,l)**2/(1+1.22*rytov(cn2,k,l)**(12/5))**(7/6) + 0.509*rytov(cn2,k,l)**2/(1+0.69*rytov(cn2,k,l)**(12/5))**(5/6))-1
+# Point plane-wave scintillation index. The four constants are 0.49, 1.11, 0.51
+# and 0.69. Source: Andrews and Phillips, Laser Beam Propagation through Random
+# Media, 2nd ed. (2005), chapter 9, equation (47), printed page 336.
+# DOI 10.1117/3.626196. The same constants are in chapter 12, equations (40) and
+# (93), and in appendix III table VII(b). Before 2026-08 this line used 0.54,
+# 1.22 and 0.509, which made the weak limit 1.049 sigma_R^2 instead of
+# sigma_R^2, a 4.9 % error.
+scint_pl = lambda cn2,k,l: np.exp(0.49*rytov(cn2,k,l)**2/(1+1.11*rytov(cn2,k,l)**(12/5))**(7/6) + 0.51*rytov(cn2,k,l)**2/(1+0.69*rytov(cn2,k,l)**(12/5))**(5/6))-1
 r0_pl = lambda cn2,k,l: (0.423*k**2*cn2*l)**(-3/5)  
 
 def v_wind(h, ws=1, Vg=10): 
